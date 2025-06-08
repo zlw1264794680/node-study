@@ -1,0 +1,53 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Build output directory
+dist/
+
+# Optional: TypeScript cache file
+.tsbuildinfo
+
+# Editor directories and files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+
+# OS generated files
+.DS_Store
+.env
+.env.local
+.env.*.local
+
+# npm package files
+*.tgz
+
+# yarn lock file
+yarn.lock
+
+# pnpm lock file
+pnpm-lock.yaml
+
+# node-gyp files
+*.node
+
+# dotenv files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+
+# misc
+.nyc_output
+coverage
