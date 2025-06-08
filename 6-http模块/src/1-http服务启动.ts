@@ -1,6 +1,6 @@
 import http from 'node:http'; // 导入 Node.js 内置的 http 模块
 
-const server = http.createServer((_req:any, res:any) => { // 创建一个 HTTP 服务器实例，并定义请求处理函数
+const server = http.createServer((_req:http.IncomingMessage, res:http.ServerResponse) => { // 创建一个 HTTP 服务器实例，并定义请求处理函数
     res.statusCode = 200; // 设置响应状态码为 200 (OK)
     res.setHeader('Content-Type', 'text/plain'); // 设置响应头，指定内容类型为纯文本
     res.end('Hello, world!\n'); // 发送响应体内容并结束响应
