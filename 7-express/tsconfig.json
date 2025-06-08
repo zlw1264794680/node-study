@@ -1,0 +1,27 @@
+{
+  "ts-node": {
+    "transpileOnly": true, // 仅进行转换，不进行类型检查，以提高速度
+  },
+  "compilerOptions": {
+    "types": [
+      "node"
+    ], // 指定需要包含的类型声明文件，这里包含 Node.js 的类型
+    "target": "es5", // 指定编译后的 JavaScript 版本，如 ES5, ES6, ESNext
+    "module": "nodenext", // 指定编译后的模块系统，Node.js 默认使用 CommonJS，nodenext 支持 ES Modules
+    "moduleResolution": "nodenext", // 指定模块解析策略，如何查找模块文件
+    "outDir": "./dist", // 指定编译输出文件的目录
+    "rootDir": "./src", // 指定源代码文件的根目录
+    "strict": true, // 启用所有严格的类型检查选项，推荐开启
+    "esModuleInterop": true, // 允许 CommonJS 和 ES 模块之间的互操作性，改善导入兼容性
+    "skipLibCheck": true, // 跳过所有声明文件（.d.ts）的类型检查，提高编译速度
+    "forceConsistentCasingInFileNames": true, // 强制文件名使用一致的大小写，避免在不区分大小写的文件系统上出现问题
+    "allowJs": true, // 允许编译 JavaScript 文件
+  },
+  "include": [
+    "src",
+    "src/2-路由系统/.ts"
+  ], // 指定需要编译的文件或目录，这里包含 src 目录下的所有文件
+  "exclude": [
+    "node_modules"
+  ] // 指定编译时需要排除的文件或目录，通常排除 node_modules
+}
