@@ -1,4 +1,5 @@
 import express from 'express';
+import { join } from 'node:path'; 
 
 const app = express();
 
@@ -8,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 // 使用内置中间件提供静态文件服务​
-app.use(express.static('public'));
+app.use(express.static(join(__dirname, '../public')));
 
 // 自定义中间件，记录请求的时间​
 app.use((req, res, next) => {
