@@ -129,6 +129,67 @@ app.use((req, res, next) => {
 });
 ```
 
+## 路由器（Router）
+
+Router 是 Express 中的一个子路由器，可以将路由逻辑分组。它使得应用的路由结构更加清晰和模块化。
+
+**src/main.ts**
+
+```ts
+import express from "express";
+import { userRouter } from "./modules/users";
+
+const app = express();
+
+// 定义一个简单的路由​
+app.get("/", (req, res: express.Response) => {
+  res.send("Hello, Express!");
+});
+
+// 将 userRouter 注册到 /users 路径​
+app.use("/users", userRouter);
+
+// 启动服务器​
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+**src/modules/users.ts**
+
+```ts
+import express from "express";
+
+// 定义用户相关的路由
+export const userRouter = express.Router();
+
+// 获取全部 user
+userRouter.get("/", (req, res) => {
+  res.send("Get all users");
+});
+
+// 创建 user
+userRouter.post("/", (req, res) => {
+  res.send("Create a new user");
+});
+
+// 获取单个 user
+userRouter.get("/:id", (req, res) => {
+  res.send(`Get user with ID ${req.params.id}`);
+});
+
+// 更新 user
+userRouter.put("/:id", (req, res) => {
+  res.send(`Update user with ID ${req.params.id}`);
+});
+
+// 删除 user
+userRouter.delete("/:id", (req, res) => {
+  res.send(`Delete user with ID ${req.params.id}`);
+});
+```
+
 ​
 
 ## 拓展
