@@ -190,10 +190,56 @@ userRouter.delete("/:id", (req, res) => {
 });
 ```
 
-​
+## 处理错误
+
+在 Express 中可以通过错误处理中间件捕获并处理路由或其他中间件中的错误。
+
+```ts
+import express from "express";
+import { Request, Response, NextFunction } from "express";
+
+const app = express();
+
+// 定义路由 ​
+app.get("/", (req, res) => {
+  throw new Error("Something went wrong!"); // 抛出错误 ​
+});
+
+// 错误处理中间件 ​
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).send("Internal Server Error");
+});
+
+// 兜底路由，处理未匹配的路径 ​
+app.use((req, res) => {
+  res.status(404).send("Not Found");
+});
+
+// 启动服务器 ​
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+## Express 区分这两种中间件主要依靠它们函数签名的参数数量
+
+- 标准中间件或路由处理函数： 接受三个参数 (req, res, next)。
+- 错误处理中间件： 接受四个参数 (err, req, res, next)。
+
+当您在 Express 应用中注册一个中间件时，Express 会检查其函数签名。
+
+- 如果函数接受 四个 参数，Express 就认为它是一个错误处理中间件。
+- 如果函数接受 三个 参数（或更少，尽管通常是三个），Express 就认为它是一个标准的中间件或路由处理函数。
+- 当在处理请求过程中发生错误时（例如，通过调用 next(err) 或在同步代码中抛出异常），Express 会跳过所有标准的 (req, res, next) 中间件和路由处理函数，直接寻找下一个 错误处理中间件 ((err, req, res, next)) 来处理这个错误。
 
 ## 拓展
 
 - express 中间件的本质就是一个函数。如果想要拓展功能，就需要通过中间件来实现。
 - 中间件的执行顺序是按照注册的顺序依次执行的，类似于洋葱模型，请求从外层到内层，响应从内层到外层。这种机制使得中间件可以对请求和响应进行处理，并且可以在请求处理的不同阶段插入自定义的逻辑。
 - 中间件思维的一种应用：**插件化机制，插件底座+插件协议**
+
+```
+
+```
