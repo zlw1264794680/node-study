@@ -4,27 +4,46 @@ import express from 'express';
 // 定义用户相关的路由
 export const userRouter = express.Router();
 
+// 模拟的用户数据​
+let users = [
+    { id: 1, name: 'John' },
+    { id: 2, name: 'Jane' },
+];
+
 // 获取全部 user
 userRouter.get('/', (req, res) => {
-    res.send('Get all users');
+    res.json(users);
 });
 
 // 创建 user
 userRouter.post('/', (req, res) => {
-    res.send('Create a new user');
+    const newUser = {
+        id: users.length + 1,
+        name: req.body.name,
+    };
+    users.push(newUser);
+    res.status(201).json(newUser);
 });
 
 // 获取单个 user
 userRouter.get('/:id', (req, res) => {
-    res.send(`Get user with ID ${req.params.id}`);
+    const user = users.find(u => u.id === parseInt(req.params.id));
+    if(!user) return res.status(404).send('User not found');
+    res.json(user);
 });
 
 // 更新 user
 userRouter.put('/:id', (req, res) => {
-    res.send(`Update user with ID ${req.params.id}`);
+    const user = users.find(u => u.id === parseInt(req.params.id));
+    if(!user) return res.status(404).send('User not found');
+    user.name = req.body.name;
+    res.json(user);
 });
 
 // 删除 user
 userRouter.delete('/:id', (req, res) => {
-    res.send(`Delete user with ID ${req.params.id}`);
+    const userIndex = users.findIndex(u => u.id === parseInt(req.params.id));
+    if(userIndex === -1) return res.status(404).send('User not found');
+    users.splice(userIndex, 1);
+    res.status(204).send(); // 204 表示没有内容返回​
 });

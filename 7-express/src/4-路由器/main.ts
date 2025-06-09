@@ -3,6 +3,8 @@ import {userRouter} from './modules/users';
 
 const app = express();
 
+app.use(express.json()); // 解析 JSON 请求体​
+
 // 定义一个简单的路由​
 app.get('/', (req, res: express.Response) => {
     res.send('Hello, Express!');
